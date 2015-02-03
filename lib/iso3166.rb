@@ -1,7 +1,8 @@
-$LOAD_PATH << File.expand_path(File.dirname(__FILE__))
-
-require 'YAML' unless defined?(YAML)
+require 'yaml'
 require 'iso4217'
 
-require 'countries/select_helper'
 require 'countries/country'
+
+if defined?(ActionView::Helpers::FormOptionsHelper)
+  ActionView::Helpers::FormOptionsHelper::COUNTRIES = ISO3166::Country::Names.map{ |(name,alpha2)| [name.html_safe,alpha2] }
+end

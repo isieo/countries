@@ -1,67 +1,106 @@
---- 
-"11": 
-  name: "Po\xC5\xBEe\xC5\xA1ko-slavonska \xC5\xBEupanija"
-  names: "Po\xC5\xBEe\xC5\xA1ko-slavonska \xC5\xBEupanija"
-"01": 
-  name: "Zagrebacka \xC5\xBEupanija"
-  names: "Zagrebacka \xC5\xBEupanija"
-"12": 
-  name: "Brodsko-posavska \xC5\xBEupanija"
-  names: "Brodsko-posavska \xC5\xBEupanija"
-"13": 
-  name: "Zadarska \xC5\xBEupanija"
-  names: "Zadarska \xC5\xBEupanija"
-"02": 
-  name: "Krapinsko-zagorska \xC5\xBEupanija"
-  names: "Krapinsko-zagorska \xC5\xBEupanija"
-"03": 
-  name: "Sisacko-moslavacka \xC5\xBEupanija"
-  names: "Sisacko-moslavacka \xC5\xBEupanija"
-"14": 
-  name: "Osjecko-baranjska \xC5\xBEupanija"
-  names: "Osjecko-baranjska \xC5\xBEupanija"
-"15": 
-  name: "\xC5\xA0ibensko-kninska \xC5\xBEupanija"
-  names: "\xC5\xA0ibensko-kninska \xC5\xBEupanija"
-"04": 
-  name: "Karlovacka \xC5\xBEupanija"
-  names: "Karlovacka \xC5\xBEupanija"
-"16": 
-  name: "Vukovarsko-srijemska \xC5\xBEupanija"
-  names: 
-  - Vukovar-Sirmium
-"05": 
-  name: "Vara\xC5\xBEdinska \xC5\xBEupanija"
-  names: "Vara\xC5\xBEdinska \xC5\xBEupanija"
-"17": 
-  name: "Splitsko-dalmatinska \xC5\xBEupanija"
-  names: 
-  - Split-Dalmatia
-"06": 
-  name: "Koprivnicko-kri\xC5\xBEevacka \xC5\xBEupanija"
-  names: "Koprivnicko-kri\xC5\xBEevacka \xC5\xBEupanija"
-"18": 
-  name: "Istarska \xC5\xBEupanija"
-  names: 
-  - Istria
-"07": 
-  name: "Bjelovarsko-bilogorska \xC5\xBEupanija"
-  names: "Bjelovarsko-bilogorska \xC5\xBEupanija"
-08: 
-  name: "Primorsko-goranska \xC5\xBEupanija"
-  names: "Primorsko-goranska \xC5\xBEupanija"
-"20": 
-  name: "Medimurska \xC5\xBEupanija"
-  names: "Medimurska \xC5\xBEupanija"
-"19": 
-  name: "Dubrovacko-neretvanska \xC5\xBEupanija"
-  names: "Dubrovacko-neretvanska \xC5\xBEupanija"
-"10": 
-  name: "Viroviticko-podravska \xC5\xBEupanija"
-  names: "Viroviticko-podravska \xC5\xBEupanija"
-09: 
-  name: "Licko-senjska \xC5\xBEupanija"
-  names: "Licko-senjska \xC5\xBEupanija"
-"21": 
-  name: Grad Zagreb
-  names: Grad Zagreb
+---
+? "01"
+:
+  name: "Zagrebačka županija"
+  names:
+    - "Zagreb County"
+? "02"
+:
+  name: "Krapinsko-zagorska županija"
+  names:
+    - "Krapina-Zagorje"
+? "03"
+:
+  name: "Sisačko-moslavačka županija"
+  names:
+    - "Sisak-Moslavina"
+? "04"
+:
+  name: "Karlovačka županija"
+  names:
+    - "Karlovac"
+? "05"
+:
+  name: "Varaždinska županija"
+  names:
+    - "Varaždin"
+? "06"
+:
+  name: "Koprivničko-križevačka županija"
+  names:
+    - "Koprivnica-Križevci"
+? "07"
+:
+  name: "Bjelovarsko-bilogorska županija"
+  names:
+    - "Bjelovar-Bilogora"
+? "08"
+:
+  name: "Primorsko-goranska županija"
+  names:
+    - "Primorje-Gorski Kotar"
+? "09"
+:
+  name: "Ličko-senjska županija"
+  names:
+    - "Lika-Senj"
+? "10"
+:
+  name: "Virovitičko-podravska županija"
+  names:
+    - "Virovitica-Podravina"
+? "11"
+:
+  name: "Požeško-slavonska županija"
+  names:
+    - "Požega-Slavonia"
+? "12"
+:
+  name: "Brodsko-posavska županija"
+  names:
+    - "Brod-Posavina"
+? "13"
+:
+  name: "Zadarska županija"
+  names:
+    - "Zadar"
+? "14"
+:
+  name: "Osječko-baranjska županija"
+  names:
+    - "Osijek-Baranja"
+? "15"
+:
+  name: "Šibensko-kninska županija"
+  names:
+    - "Šibenik-Knin"
+? "16"
+:
+  name: "Vukovarsko-srijemska županija"
+  names:
+    - "Vukovar-Sirmium"
+? "17"
+:
+  name: "Splitsko-dalmatinska županija"
+  names:
+    - "Split-Dalmatia"
+? "18"
+:
+  name: "Istarska županija"
+  names:
+    - "Istria"
+? "19"
+:
+  name: "Dubrovačko-neretvanska županija"
+  names:
+    - "Dubrovnik-Neretva"
+? "20"
+:
+  name: "Međimurska županija"
+  names:
+    - "Međimurje"
+? "21"
+:
+  name: "Grad Zagreb"
+  names:
+    - "City of Zagreb"

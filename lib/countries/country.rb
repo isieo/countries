@@ -2,17 +2,20 @@ module ISO3166; end
 
 class ISO3166::Country
   Data = YAML.load_file(File.join(File.dirname(__FILE__), '..', 'data', 'countries.yaml')) || {}
-  Names = Data.map {|k,v| [v['name'],k]}.sort
+  Names = Data.map {|k,v| [v['name'],k]}.sort_by { |d| d[0] }
   NameIndex = Hash[*Names.flatten]
 
   AttrReaders = [
     :number,
     :alpha2,
     :alpha3,
+    :currency,
     :name,
     :names,
+    :translations,
     :latitude,
     :longitude,
+    :continent,
     :region,
     :subregion,
     :country_code,
@@ -20,7 +23,13 @@ class ISO3166::Country
     :national_number_lengths,
     :international_prefix,
     :national_prefix,
-    :address_format
+    :address_format,
+    :ioc,
+    :un_locode,
+    :languages,
+    :nationality,
+    :eu_member,
+    :postal_code
   ]
 
   AttrReaders.each do |meth|
@@ -31,54 +40,110 @@ class ISO3166::Country
 
   attr_reader :data
 
-  def initialize(country_code)
-    @data = Data[country_code]
+  def initialize(country_data)
+    @data = country_data.is_a?(Hash) ? country_data : Data[country_data.to_s.upcase]
+  end
+
+  def valid?
+    not (@data.nil? or @data.empty?)
   end
   
-  def valid?
-    !!@data
+  alias_method :zip, :postal_code
+  alias_method :zip?, :postal_code
+  alias_method :postal_code?, :postal_code
+
+  def ==(other)
+    self.data == other.data
   end
 
   def currency
     ISO4217::Currency.from_code(@data['currency'])
   end
 
+  def currency_code
+    @data['currency']
+  end
+
   def subdivisions
     @subdivisions ||= subdivisions? ? YAML.load_file(File.join(File.dirname(__FILE__), '..', 'data', 'subdivisions', "#{alpha2}.yaml")) : {}
   end
-  
+
   alias :states :subdivisions
-  
+
   def subdivisions?
     File.exist?(File.join(File.dirname(__FILE__), '..', 'data', 'subdivisions', "#{alpha2}.yaml"))
   end
-  
+
+  def in_eu?
+    @data['eu_member'].nil? ? false : @data['eu_member']
+  end
+
+  def to_s
+    @data['name']
+  end
+
   class << self
-    def all
-      Data.map { |country,data| [data['name'],country] }
+    def new(country_data)
+      if country_data.is_a?(Hash) || Data.keys.include?(country_data.to_s.upcase)
+        super
+      end
     end
-    
+
+    def all(&blk)
+      blk ||= Proc.new { |country ,data| [data['name'], country] }
+      Data.map &blk
+    end
+
     alias :countries :all
+
+    def all_translated(locale='en')
+      translate = ->(country) { self.new(country[1]).translations[locale] }
+      list = self.all.map(&translate).compact.sort
+    end
 
     def search(query)
       country = self.new(query.to_s.upcase)
-      country.valid? ? country : false
+      (country && country.valid?) ? country : nil
     end
 
     def [](query)
       self.search(query)
     end
 
-    def find_by_name(name)
-      name.downcase!
-      Data.select do |k,v|
-        v["name"].downcase == name || v["names"].map{ |n| n.downcase }.include?(name)
-      end.first
+    def method_missing(*m)
+      regex = m.first.to_s.match(/^find_(all_)?(country_|countries_)?by_(.+)/)
+      super unless regex
+
+      countries = self.find_by($3, m[1], $2)
+      $1 ? countries : countries.last
     end
 
-    def find_country_by_name(name)
-      result = self.find_by_name(name)
-      result ? self.new(result.first) : nil
+    def find_all_by(attribute, val)
+      attributes, value = parse_attributes(attribute, val)
+
+      Data.select do |_, v|
+        attributes.map do |attr|
+          Array(v[attr]).any?{ |n| value === n.to_s.downcase }
+        end.include?(true)
+      end
+    end
+
+    protected
+    def parse_attributes(attribute, val)
+      raise "Invalid attribute name '#{attribute}'" unless AttrReaders.include?(attribute.to_sym)
+
+      attributes = Array(attribute.to_s)
+      attributes << 'names' if attributes == ['name']
+
+      val = (val.is_a?(Regexp) ? Regexp.new(val.source, 'i') : val.to_s.downcase)
+
+      [attributes, val]
+    end
+
+    def find_by(attribute, value, obj = nil)
+      self.find_all_by(attribute.downcase, value).map do |country|
+        obj.nil? ? country : self.new(country.last)
+      end
     end
   end
 end
